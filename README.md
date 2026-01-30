@@ -1,68 +1,125 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="mn">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Анука-д боломж</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Чамдаа</title>
   <style>
-    :root{--bg:#f7f4fb;--card:#fff;--accent:#ff6b81;--muted:#666}
-    *{box-sizing:border-box;font-family:Inter, "Noto Sans Mongolian", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
-    html,body{height:100%;margin:0;background:linear-gradient(135deg,#fef3f7 0%, #f0f7ff 100%)}
-    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:32px}
-
-    .card{background:var(--card);padding:28px;border-radius:16px;box-shadow:0 10px 30px rgba(20,20,50,0.08);max-width:720px;width:100%;text-align:center}
-    h1{margin:0 0 18px;font-size:26px;color:#222}
-    p{color:var(--muted);line-height:1.5}
-
-    .btn-row{display:flex;gap:12px;justify-content:center;margin-top:20px}
-    button{padding:12px 20px;border-radius:10px;border:0;font-size:16px;cursor:pointer;box-shadow:0 6px 16px rgba(20,20,50,0.06)}
-    .yes{background:var(--accent);color:white}
-    .no{background:#eef2ff;color:#2b2b66}
-
-    .hidden{display:none}
-
-    .message{font-size:20px}
-
-    /* small responsive tweak */
-    @media (max-width:420px){.card{padding:20px}h1{font-size:20px}}
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .page {
+      display: none;
+      text-align: center;
+      max-width: 600px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .page.active {
+      display: block;
+    }
+    h1, h2, p {
+      margin-bottom: 20px;
+    }
+    button {
+      background: #ff4b5c;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff2e44;
+      transform: scale(1.05);
+    }
+    input {
+      padding: 12px;
+      border-radius: 20px;
+      border: none;
+      width: 80%;
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .error {
+      color: #ffe6e6;
+      margin-top: 10px;
+    }
+    .link {
+      margin-top: 8px;
+      text-decoration: underline;
+      cursor: pointer;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card" id="start">
-      <h1>Анука жавхаад боломж олгох уу?</h1>
-      <div class="btn-row">
-        <button class="yes" id="yesBtn">Тийм</button>
-        <button class="no" id="noBtn">Үгүй</button>
-      </div>
-    </div>
 
-    <div class="card hidden" id="yesCard">
-      <h1>Баярлалаа Анука</h1>
-      <p class="message">Худлаа хэлсэнг минь уучлаарай. Чамайг алдахвы гэж айсандаа юм шүү. Дахиж чиний итгэлийг алдахгүй ээ. Хайртай шүү хөөрхнөө 💖</p>
-    </div>
+  <!-- Page 1 -->
+  <div class="page active" id="page1">
+    <h1>Энийг харж буй хөөрхөн танд энэ цагийн мэндийг хүргэе 💖</h1>
+    <p>Таны найз залууд танд хэлэх үг байна гэнэ ээ</p>
+    <button onclick="goToPage(2)">Цааш үргэлжлүүлэх</button>
+  </div>
 
-    <div class="card hidden" id="noCard">
-      <h1>Алдаа гарсан байна😁</h1>
-      </div>
+  <!-- Page 2 -->
+  <div class="page" id="page2">
+    <h2>Цааш үргэлжлүүлэхийн тулд нууц үг хийнэ үү 🔐</h2>
+    <input type="password" id="password" placeholder="Нууц үг" />
+    <br />
+    <button onclick="checkPassword()">Нэвтрэх</button>
+    <div class="error" id="error"></div>
+    <div class="link" id="skip" onclick="goToPage(3)" style="display:none;">
+      Тоглоомондоо энд дарна уу 😉
+    </div>
+  </div>
+
+  <!-- Page 3 -->
+  <div class="page" id="page3">
+    <h2>Сайн уу миний гүнжээ 💕</h2>
+    <p>
+      Чи минь энийг унших цаг минутын мэндийг хүргэе. <br /><br />
+      Хайрийгaa гомдоож уурлуулдагт уучлаарай. <br />
+      Хэдий цаг хугацаа, зай биднийг түр холдуулсан ч <br />
+      зүрхний цохилт бүр минь чиний төлөө цохилдог юм шүү. <br /><br />
+      Чамтай өнгөрүүлэх ирээдүйн өдрүүдийг <br />
+      би тэсэн ядан хүлээж байна. <br /><br />
+      Чамдаа хязгааргүй их хайртай шүү 💖
+    </p>
   </div>
 
   <script>
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const start = document.getElementById('start');
-    const yesCard = document.getElementById('yesCard');
-    const noCard = document.getElementById('noCard');
+    function goToPage(pageNumber) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page' + pageNumber).classList.add('active');
+    }
 
-    function show(el){ start.classList.add('hidden'); yesCard.classList.add('hidden'); noCard.classList.add('hidden'); el.classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
+    function checkPassword() {
+      const input = document.getElementById('password').value;
+      const error = document.getElementById('error');
+      const skip = document.getElementById('skip');
 
-    yesBtn.addEventListener('click',()=>{
-      show(yesCard);
-    });
-
-    noBtn.addEventListener('click',()=>{
-      show(noCard);
-    });
+      if (input === 'Anuka247') {
+        error.textContent = 'Нууц үг буруу байна 😅';
+        skip.style.display = 'block';
+      } else {
+        error.textContent = 'Нууц үг буруу байна 😅';
+        skip.style.display = 'block';
+      }
+    }
   </script>
+
 </body>
 </html>
